@@ -1,17 +1,7 @@
-library(ggplot2)
-library(reshape)
-library(energy)
-library(minerva)
-library(matie)
+library('ProjectTemplate')
+load.project()
 
 #TODO: simulate performance of penalised spline and HHG
-
-## We write the following function because MIC glitches a small percentage of the time, and we do not wish to average over those trials
-notNA.greater <- function(a,b){
-  ind <- which(!is.na(a))
-  pow <- sum(a[ind] > b)/length(ind)
-  return(pow)
-}
 
 
 #' A function to simulate power while varying the amount of noise.
