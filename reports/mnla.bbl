@@ -1,0 +1,92 @@
+\begin{thebibliography}{13}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[big(2012)]{bigdata2012}
+Finding correlations in big data.
+\newblock \emph{Nature Biotechnology}, 30\penalty0 (4):\penalty0 334--335,
+  April 2012.
+
+\bibitem[Heller et~al.(2013)Heller, Heller, and Gorfine]{HHG}
+Ruth Heller, Yair Heller, and Malka Gorfine.
+\newblock A consistent multivariate test of association based on ranks of
+  distances.
+\newblock \emph{Biometrika}, 100\penalty0 (2):\penalty0 503--510, 2013.
+\newblock \doi{10.1093/biomet/ass070}.
+\newblock URL
+  \url{http://biomet.oxfordjournals.org/content/100/2/503.abstract}.
+
+\bibitem[Reshef et~al.(2011)Reshef, Reshef, and Finucane]{mic2011}
+D.~Reshef, Y.~Reshef, and H.~Finucane.
+\newblock Detecting novel associations in large data sets.
+\newblock \emph{Science}, 334\penalty0 (6062):\penalty0 1518--1524, December
+  2011.
+
+\bibitem[Simon and Tibshirani(2011)]{Tibshirani2011}
+N~Simon and R~Tibshirani.
+\newblock Comment on detecting novel associations in large data sets by reshef
+  et al, December 2011.
+\newblock URL \url{http://statweb.stanford.edu/\~tibs/reshef/comment.pdf}.
+
+\bibitem[Kinney and Atwal(2014)]{Kinney19082014}
+Justin~B. Kinney and Gurinder~S. Atwal.
+\newblock Reply to reshef et al.: Falsifiability or bust.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 111\penalty0
+  (33):\penalty0 E3364, 2014.
+\newblock \doi{10.1073/pnas.1410317111}.
+\newblock URL \url{http://www.pnas.org/content/111/33/E3364.short}.
+
+\bibitem[Murrel et~al.(2013)Murrel, Murrel, and Murrel]{Murrel:2013:Online}
+B.~Murrel, D.~Murrel, and H.~Murrel.
+\newblock Discovering general multidimensional associations, March 2013.
+\newblock URL \url{http://arxiv.org/pdf/1303.1828v1.pdf}.
+
+\bibitem[Miller(2004)]{MSA}
+{Irwin and Marylees} Miller.
+\newblock \emph{{John E. Freund's mathematical statistics with applications}}.
+\newblock Pearson Prentice Hall, Upper Saddle River, NJ, 7th edition, 2004.
+
+\bibitem[Michele Filosi~[aut(2014)]{minerva}
+Roberto Visintainer [aut] Davide Albanese [aut] Samantha Riccadonna [ctb]
+  Giuseppe Jurman [ctb] Cesare Furlanello~[ctb] Michele Filosi~[aut, cre].
+\newblock \emph{minerva: Maximal Information-Based Nonparametric Exploration R
+  package for Variable Analysis}, 2014.
+\newblock URL \url{http://CRAN.R-project.org/package=minerva}.
+
+\bibitem[Murrell et~al.(2015)Murrell, Murrell, and Murrell]{matie}
+Ben Murrell, Dan Murrell, and Hugh Murrell.
+\newblock \emph{Measuring Association and Testing Independence Efficiently},
+  2015.
+\newblock URL \url{http://CRAN.R-project.org/package=matie}.
+
+\bibitem[Szekely and Rizzo(2013)]{energy2013}
+G.~Szekely and M.~L Rizzo.
+\newblock Energy statistics: A class of statistics based on distances.
+\newblock \emph{Journal of Statistical Planning and Inference}, 143\penalty0
+  (8):\penalty0 1249--1272, August 2013.
+
+\bibitem[Rizzo and Szekely(2014)]{energy}
+Maria~L. Rizzo and Gabor~J. Szekely.
+\newblock \emph{energy: E-statistics (energy statistics)}, 2014.
+\newblock URL \url{http://CRAN.R-project.org/package=energy}.
+
+\bibitem[Scheipl(2011)]{spikeSlabGAM}
+Fabian Scheipl.
+\newblock {spikeSlabGAM}: {B}ayesian variable selection, model choice and
+  regularization for generalized additive mixed models in {R}.
+\newblock \emph{Journal of Statistical Software}, 43\penalty0 (14):\penalty0
+  1--24, 2011.
+\newblock URL \url{http://www.jstatsoft.org/v43/i14/}.
+
+\bibitem[Ni et~al.(2015)Ni, Stingo, and Baladandayuthapani]{BayesianGRN}
+Yang Ni, Francesco~C. Stingo, and Veerabhadran Baladandayuthapani.
+\newblock Bayesian nonlinear model selection for gene regulatory networks.
+\newblock \emph{Biometrics}, pages n/a--n/a, 2015.
+\newblock ISSN 1541-0420.
+\newblock \doi{10.1111/biom.12309}.
+\newblock URL \url{http://dx.doi.org/10.1111/biom.12309}.
+
+\end{thebibliography}
