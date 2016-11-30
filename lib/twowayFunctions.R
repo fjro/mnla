@@ -5,11 +5,11 @@ cubic <- function(x, noise, noiseLevel, num.noise, n){y=128*(x-1/3)^3-48*(x-1/3)
 qroot <- function(x, noise, noiseLevel, num.noise, n){y=x^(1/4) + noise * (noiseLevel/num.noise) *rnorm(n)} #x^(1/4) + noise
 exponential2 <- function(x, noise, noiseLevel, num.noise){y=exp(x^2) + (1.5 *noise * (noiseLevel/num.noise) * rnorm(n))}
 logE <- function(x, noise, noiseLevel, num.noise){y=log(x) + 2 * (noise * (noiseLevel/num.noise) * rnorm(n))}
-sigmoid <- function(x, noise, noiseLevel, num.noise){((1 + exp(10*(0.5 - x)))^-1) +( noise * (noiseLevel/num.noise) * rnorm(n))}#their sine + noise
+sigmoid <- function(x, noise, noiseLevel, num.noise){((1 + exp(10*(0.5 - x)))^-1) +( noise * (noiseLevel/num.noise) * rnorm(n))}
 step <- function(x, noise, noiseLevel, num.noise){y = (x > 0.5) + noise*5*noiseLevel/num.noise *rnorm(n)}
 spike <- function(x, noise, noiseLevel, num.noise) { ifelse (x < 0.05, 4,ifelse (x < 0.1, -18*x + 1.9 ,-x/9 + 1/9 ))+ noise*5*noiseLevel/num.noise *rnorm(n)}
 sinLow <- function(x, noise, noiseLevel, num.noise){y=sin(4*pi*x) + 2*noise * (noiseLevel/num.noise) *rnorm(n)}
-sinHigh <- function(x, noise, noiseLevel, num.noise){y=sin(16*pi*x) + 2*noise * (noiseLevel/num.noise) *rnorm(n)}#their sine + noise
+sinHigh <- function(x, noise, noiseLevel, num.noise){y=sin(16*pi*x) + 2*noise * (noiseLevel/num.noise) *rnorm(n)}
 linearPeriodic <- function(x, noise, noiseLevel, num.noise){y= sin(10*pi*x) + x + 3*noise * (noiseLevel/num.noise) *rnorm(n)}
 varyingFreq <- function(x, noise, noiseLevel, num.noise){y= sin(5*pi*x*(1+x)) + x + 3*noise * (noiseLevel/num.noise) *rnorm(n)}
 circle <- function(x, noise, noiseLevel, num.noise){y=(2*rbinom(n,1,0.5)-1) * (sqrt(1 - (2*x - 1)^2)) + noise/4*noiseLevel/num.noise *rnorm(n)}
