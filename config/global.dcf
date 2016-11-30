@@ -1,11 +1,11 @@
-version: 0.1
+version: 0.6
 data_loading: TRUE
 cache_loading: TRUE
 recursive_loading: FALSE
 munging: TRUE
 logging: FALSE
 load_libraries: TRUE
-libraries: reshape, dplyr, ggplot2, stringr, matie, energy, snowfall, minerva
+libraries: reshape2, dplyr, ggplot2, stringr, matie, energy, snowfall, minerva, microbenchmark
 as_factors: TRUE
 data_tables: FALSE
 attach_internal_libraries: FALSE
