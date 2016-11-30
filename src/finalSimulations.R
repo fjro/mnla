@@ -4,10 +4,6 @@ load.project()
 #TODO: simulate performance of penalised spline and HHG
 
 
-
-dim(array(NA, c(4,5)))
-
-
 #add the desired functions to a list for evaluation during simmulations
 functions <- list("linear"=linear,"Quadratic"=quadratic,"Cubic"=cubic, "Fourth Root" = qroot, "Exponential" = exponential2, 
                  "Natural Log" = logE, "Sigmoid" = sigmoid, "Step"=step, "Spike" = spike,
