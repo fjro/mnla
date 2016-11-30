@@ -27,7 +27,8 @@ functions <- c("linear", "quadratic", "cubic", "qroot", "exponential2", "logE", 
 benchmarks <- lapply(functions, benchmarkFunction)
 benchmarks <- plyr::ldply(benchmarks)
 
-#plot the results
-ggplot(benchmarks, aes(Function, time)) + 
+#plot the results, ignore spike as the ifelse makes it much slower
+ggplot(benchmarks[benchmarks$Function != "spike",], aes(Function, time)) + 
   geom_boxplot() + 
-  theme(axis.text.x=element_text(angle=90, hjust=1))
+  theme(axis.text.x=element_text(angle=90, hjust=1)) +
+  ylab("Time (ns)")
