@@ -10,8 +10,6 @@ functions <- list("linear"=linear,"Quadratic"=quadratic,"Cubic"=cubic, "Fourth R
                  "Sine: Low"= sinLow, "Sine: High" = sinHigh, "Linear+Periodic" = linearPeriodic, "Varying Frequency" = varyingFreq,
                  "Circle" = circle, "X" = xShaped)
 
-functions <- list("linear"=linear,"Quadratic"=quadratic)
-
 #run the noise simulation using a beta(2,5) and plot the results
 set.seed(1)
 noiseResults <- powerVersusNoise(functions, rbeta, shape1=2, shape2=5)
