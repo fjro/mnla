@@ -24,14 +24,10 @@ nl <- 3
 l <- 6
 num.noise <- 30
 
-
 functions <- c("linear", "quadratic", "cubic", "qroot", "exponential2", "logE", "sigmoid", "step", "spike", "sinLow", "sinHigh",
-               "linearPeriodic", "varyingFreq", "circle", 
+               "linearPeriodic", "varyingFreq", "circle", "xShaped",
                "linearCpp", "quadraticCpp", "cubicCpp", "qrootCpp", "exponentialCpp", "logECpp", "sigmoidCpp", "stepCpp", "spikeCpp",
-               "sinLowCpp", "sinHighCpp", "linearPeriodicCpp", "varyingFreqCpp", "circleCpp")
-
-functions <- c("linear", "quadratic", "cubic", "qroot", "exponential2", "logE", "sigmoid", "step", "spike",
-               "linearCpp", "quadraticCpp", "cubicCpp", "qrootCpp", "exponentialCpp", "logECpp", "sigmoidCpp", "stepCpp", "spikeCpp")
+               "sinLowCpp", "sinHighCpp", "linearPeriodicCpp", "varyingFreqCpp", "circleCpp", "xShapedCpp")
 
 #run the benchmarks and aggregate the results
 benchmarks <- sapply(c(10, 20, 30, 50, 100, 200, 350, 500, 1000, 2000, 3000), function(n) lapply(functions, benchmarkFunction, n=n))
@@ -52,4 +48,6 @@ by_median <- benchmarks %>%
 ggplot(by_median, aes(n, Time, colour = Implementation)) + 
   geom_line() +
   ylab("Time (ns)") + 
-  facet_wrap(~ Function)
+  xlab("Sample Size") + 
+  ggtitle("R vs C++ implementations of two-way functions") +
+  facet_wrap(~ Function) 

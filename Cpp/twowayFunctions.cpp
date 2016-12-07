@@ -1,4 +1,7 @@
-#include <Rcpp.h>
+//#include <Rcpp.h>
+#include <RcppArmadilloExtensions/sample.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+
 using namespace Rcpp;
 
 //define pi
@@ -94,8 +97,10 @@ NumericVector circleCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 nu
   return (2 * rbinom(n,1,0.5) -1) * sqrt(1 - pow(2*x - 1,2)) + noise/4*noiseLevel/numNoise *rnorm(n);
 }
 
-// // [[Rcpp::export]]
-// NumericVector xShapedCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-//   return ((4 * pow(x-.5,2) + (noiseLevel/numNoise) * rnorm(n)) * sample( c(-1,1), size=n, replace=T ) );
-// }
-// xShaped <- function(x, noise, noiseLevel, num.noise, n){y=((4*(x-.5)^2 + (noiseLevel/num.noise) * rnorm(n)) * sample( c(-1,1), size=n, replace=T ) )}
+// [[Rcpp::export]]
+NumericVector xShapedCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
+  NumericVector vec(2);
+  vec[0] = -1;
+  vec[1] = 1;
+  return (4 * pow(x -0.5, 2) + (noiseLevel/numNoise) * rnorm(n)) *  RcppArmadillo::sample( vec, n, true);
+}
