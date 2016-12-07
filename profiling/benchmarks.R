@@ -13,6 +13,9 @@ benchmarkFunction <- function(fn, times = 500) {
   res
 }
 
+microbenchmark(linear(x, nl, l, num.noise, n), linearCpp(x, nl, l, num.noise, n))
+microbenchmark(cubic(x, nl, l, num.noise, n), cubicCpp(x, nl, l, num.noise, n))
+
 #set up the parameters and functions to benchmark.
 n <- 320
 nl <- 3 
@@ -23,12 +26,13 @@ x <- runif(n)
 functions <- c("linear", "quadratic", "cubic", "qroot", "exponential2", "logE", "sigmoid", "step", "spike", "sinLow", "sinHigh",
                "linearPeriodic", "varyingFreq", "circle", "xShaped")
 
+
 #run the benchmarks and aggregate the results
 benchmarks <- lapply(functions, benchmarkFunction)
 benchmarks <- plyr::ldply(benchmarks)
 
-#plot the results, ignore spike as the ifelse makes it much slower
-ggplot(benchmarks[benchmarks$Function != "spike",], aes(Function, time)) + 
+#plot the results
+ggplot(benchmarks, aes(Function, time)) + 
   geom_boxplot() + 
   theme(axis.text.x=element_text(angle=90, hjust=1)) +
   ylab("Time (ns)")
