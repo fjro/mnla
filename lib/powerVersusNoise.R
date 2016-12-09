@@ -23,7 +23,7 @@ powerVersusNoise <- function(#measures,
   # Arrays holding the estimated power for each of the association types, 
   #for each functional with each noise level
   power.cor=power.dcor=power.mine=power.A=power.spear= array(NA, c(length(functions),numNoise))                
-  cat("dim power.cor = ", dim(power.cor), "\n")
+
   #Loop through the noise level and functional form; 
   #each time we estimate a null distribution based on the marginals of the data, 
   #and then use that null distribution to estimate power
@@ -36,7 +36,6 @@ powerVersusNoise <- function(#measures,
       {
         #sample from the given distribution
         x <- distribution(n,...)
-        
         #evaluate the function 
         y <- functions[[typ]](x, nl, l, numNoise, n)
         # We resimulate x so that we have the null scenario
