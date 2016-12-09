@@ -50,4 +50,5 @@ ggplot(by_median, aes(n, Time, colour = Implementation)) +
   ylab("Time (ns)") + 
   xlab("Sample Size") + 
   ggtitle("R vs C++ implementations of two-way functions") +
-  facet_wrap(~ Function) 
+  facet_wrap(~ Function) + 
+  theme(legend.position="bottom") 

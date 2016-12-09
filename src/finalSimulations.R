@@ -11,13 +11,15 @@ functions <- list("linear"=linear,"Quadratic"=quadratic,"Cubic"=cubic, "Fourth R
                  "Circle" = circle, "X" = xShaped)
 
 #run the noise simulation using a beta(2,5) and plot the results
+functions <- list("linear"=linear)
 set.seed(1)
+
 noiseResults <- powerVersusNoise(functions, rbeta, shape1=2, shape2=5)
 ggplot(noiseResults, aes(x=Noise, y=Power,group=Statistic,colour=Statistic)) +
   geom_line(size=1.1) + 
   facet_wrap(~ Form, ncol=3) + 
   theme(legend.position="bottom")  
-
+library(minerva)
 #run the sample size simulations and plot the results
 sampleSizes <- c(10,20,30,40,50,75,100,125,150,200,250,300,350,400,500,750,1000)
 set.seed(1)

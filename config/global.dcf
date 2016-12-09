@@ -5,7 +5,7 @@ recursive_loading: FALSE
 munging: TRUE
 logging: FALSE
 load_libraries: TRUE
-libraries: reshape2, dplyr, ggplot2, stringr, matie, energy, snowfall, minerva, microbenchmark
+libraries: tidyr, dplyr, ggplot2, stringr, matie, energy, snowfall, minerva, microbenchmark
 as_factors: TRUE
 data_tables: FALSE
 attach_internal_libraries: FALSE
