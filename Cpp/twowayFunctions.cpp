@@ -14,27 +14,29 @@ NumericVector linearCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 nu
 
 // [[Rcpp::export]]
 NumericVector quadraticCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  return ((4*(x-.5)) * (4*(x-.5))) +  noise * (noiseLevel/numNoise) * rnorm(n);
+  return  4 * pow(x-.5, 2) +  noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
 NumericVector cubicCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  return 128 * pow(x-1/3, 3) - 48 * pow(x-1/3, 3) - 12*(x-1/3)+10* noise  * (noiseLevel/numNoise) *rnorm(n);
+  //128*(x-1/3)^3-48*(x-1/3)^3-12*(x-1/3)+10* noise  * (noiseLevel/numNoise) *rnorm(n)
+  return (128 * pow(x - 1/3, 3)) - (48 * pow(x-1/3, 3)) - (12 * (x-1/3)) + 10 * noise  * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
 NumericVector qrootCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  return log(x) + 2 * (noise * (noiseLevel/numNoise) * rnorm(n));
+  //x^(1/4) + noise * (noiseLevel/numNoise) *rnorm(n)
+  return pow(x, 1/4) + noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
 NumericVector exponentialCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  return 128 * pow(x, 1/4) + noise * (noiseLevel/numNoise) * rnorm(n) ;
+  return exp(pow(x, 2)) + (1.5 *noise * (noiseLevel/numNoise) * rnorm(n));
 }
 
 // [[Rcpp::export]]
 NumericVector logECpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  return exp(pow(x, 2)) + (1.5 *noise * (noiseLevel/numNoise) * rnorm(n));
+  return log(x) + 2 * (noise * (noiseLevel/numNoise) * rnorm(n));
 }
 
 // [[Rcpp::export]]
