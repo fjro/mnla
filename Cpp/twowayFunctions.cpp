@@ -58,7 +58,6 @@ NumericVector stepCpp(NumericVector x, int noise, float noiseLevel, int numNoise
 NumericVector spikeCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   NumericVector v(x.size());
   for(int i = 0; i < v.size(); i++) {
-    std::cout <<  x[i] << ' ';
     if (x[i] < 0.05) {
       v[i] = 4.0;
     } 
