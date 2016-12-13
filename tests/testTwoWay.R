@@ -20,25 +20,25 @@ test_that("quadratic implementations are equal", {
   expect_equal(y, ycpp)
 })
 
-# test_that("cubic implementations are equal", {
-#   set.seed(1)
-#   x <- runif(10)
-#   set.seed(1)
-#   y <- cubic(x, 3, 10, 30, 10)
-#   set.seed(1)
-#   ycpp <- cubicCpp(x, 3, 10, 30, 10)
-#   expect_equal(y, ycpp)
-# })
+test_that("cubic implementations are equal", {
+  set.seed(1)
+  x <- runif(10)
+  set.seed(1)
+  y <- cubic(x, 3, 10, 30, 10)
+  set.seed(1)
+  ycpp <- cubicCpp(x, 3, 10, 30, 10)
+  expect_equal(y, ycpp)
+})
 
-# test_that("qroot implementations are equal", {
-#   set.seed(1)
-#   x <- runif(10)
-#   set.seed(1)
-#   y <- qroot(x, 3, 10, 30, 10)
-#   set.seed(1)
-#   ycpp <- qrootCpp(x, 3, 10, 30, 10)
-#   expect_equal(y, ycpp)
-# })
+test_that("qroot implementations are equal", {
+  set.seed(1)
+  x <- runif(10)
+  set.seed(1)
+  y <- qroot(x, 3, 10, 30, 10)
+  set.seed(1)
+  ycpp <- qrootCpp(x, 3, 10, 30, 10)
+  expect_equal(y, ycpp)
+})
 
 test_that("exponential implementations are equal", {
   set.seed(1)
@@ -80,15 +80,15 @@ test_that("Step implementations are equal", {
   expect_equal(y, ycpp)
 })
 
-# test_that("Spike implementations are equal", {
-#   set.seed(1)
-#   x <- runif(10)
-#   set.seed(1)
-#   y <- spike(x, 3, 10, 30, 10)
-#   set.seed(1)
-#   ycpp <- spikeCpp(x, 3, 10, 30, 10)
-#   expect_equal(y, ycpp)
-# })
+test_that("Spike implementations are equal", {
+  set.seed(1)
+  x <- runif(10)
+  set.seed(1)
+  y <- spike(x, 2, 10, 30, 10)
+  set.seed(1)
+  ycpp <- spikeCpp(x, 2, 10, 30, 10)
+  expect_equal(y, ycpp, tolerance = 0.01)
+})
 
 test_that("Sine low implementations are equal", {
   set.seed(1)
@@ -130,22 +130,6 @@ test_that("Varying freq implementations are equal", {
   expect_equal(y, ycpp)
 })
 
-# test_that("Circle implementations are equal", {
-#   set.seed(1)
-#   x <- runif(10)
-#   set.seed(1)
-#   y <- circle(x, 3, 10, 30, 10)
-#   set.seed(1)
-#   ycpp <- circleCpp(x, 3, 10, 30, 10)
-#   expect_equal(y, ycpp)
-# })
+#circle and x rely on random sampling so testing is awkward
 
-# test_that("X shaped implementations are equal", {
-#   set.seed(1)
-#   x <- runif(10)
-#   set.seed(1)
-#   y <- xShaped(x, 3, 10, 30, 10)
-#   set.seed(1)
-#   ycpp <- xShapedCpp(x, 3, 10, 30, 10)
-#   expect_equal(y, ycpp)
-# })
+

@@ -8,44 +8,42 @@ using namespace Rcpp;
 double pi = 3.141592653589793238462643383280;
 
 // [[Rcpp::export]]
-NumericVector linearCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector linearCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   return x + noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector quadraticCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector quadraticCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   return  4 * pow(x-.5, 2) +  noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector cubicCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  //128*(x-1/3)^3-48*(x-1/3)^3-12*(x-1/3)+10* noise  * (noiseLevel/numNoise) *rnorm(n)
-  return (128 * pow(x - 1/3, 3)) - (48 * pow(x-1/3, 3)) - (12 * (x-1/3)) + 10 * noise  * (noiseLevel/numNoise) * rnorm(n);
+NumericVector cubicCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
+  return (128 * pow(x - 1/3.0, 3)) - (48 * pow(x-1/3.0, 3)) - (12 * (x-1/3.0)) + 10 * noise  * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector qrootCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
-  //x^(1/4) + noise * (noiseLevel/numNoise) *rnorm(n)
-  return pow(x, 1/4) + noise * (noiseLevel/numNoise) * rnorm(n);
+NumericVector qrootCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
+  return pow(x, 1/4.0) + noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector exponentialCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector exponentialCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   return exp(pow(x, 2)) + (1.5 *noise * (noiseLevel/numNoise) * rnorm(n));
 }
 
 // [[Rcpp::export]]
-NumericVector logECpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector logECpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   return log(x) + 2 * (noise * (noiseLevel/numNoise) * rnorm(n));
 }
 
 // [[Rcpp::export]]
-NumericVector sigmoidCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector sigmoidCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   return (1/(1 + exp(10*(0.5 - x)))) + (noise * (noiseLevel/numNoise) * rnorm(n) );
 }
 
 // [[Rcpp::export]]
-NumericVector stepCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector stepCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   NumericVector v(x.size());
   for(int i = 0; i < v.size(); i++) {
     if(x[i] > 0.5) {
@@ -57,50 +55,52 @@ NumericVector stepCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numN
 }
 
 // [[Rcpp::export]]
-NumericVector spikeCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) { 
+NumericVector spikeCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) { 
   NumericVector v(x.size());
   for(int i = 0; i < v.size(); i++) {
+    std::cout <<  x[i] << ' ';
     if (x[i] < 0.05) {
-      v = 4;
+      v[i] = 4.0;
     } 
     else if(x[i] < 0.1) {
-      v = -18*x + 1.9;
-    } 
+      v[i] = -18.0 * x[i] + 1.9;
+    }
     else {
-      v <- -x[i]/9 + 1/9;
-    }  
+      v[i] = -x[i]/9.0 + 1.0/9.0;
+    }
   }
   
   return v + noise * 5 * noiseLevel/numNoise * rnorm(n);
 }
 
+
 // [[Rcpp::export]]
-NumericVector sinLowCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
+NumericVector sinLowCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) {
   return sin(4*pi*x) + 2*noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector sinHighCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
+NumericVector sinHighCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) {
   return sin(16*pi*x) + 2*noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector linearPeriodicCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
+NumericVector linearPeriodicCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) {
   return sin(10*pi*x) + x + 3 * noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector varyingFreqCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
+NumericVector varyingFreqCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) {
   return sin(5*pi*x*(1+x)) + x + 3 * noise * (noiseLevel/numNoise) * rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector circleCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
-  return (2 * rbinom(n,1,0.5) -1) * sqrt(1 - pow(2*x - 1,2)) + noise/4*noiseLevel/numNoise *rnorm(n);
+NumericVector circleCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) {
+  return (2 * rbinom(n,1,0.5) -1.0) * sqrt(1 - pow(2.0 * x - 1.0,2)) + noise/4.0*noiseLevel/numNoise *rnorm(n);
 }
 
 // [[Rcpp::export]]
-NumericVector xShapedCpp(NumericVector x, Int32 noise, float noiseLevel, Int32 numNoise, Int32 n) {
+NumericVector xShapedCpp(NumericVector x, int noise, float noiseLevel, int numNoise, int n) {
   NumericVector vec(2);
   vec[0] = -1;
   vec[1] = 1;

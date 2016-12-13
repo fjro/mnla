@@ -4,7 +4,7 @@ linear <- function(x, noise, noiseLevel, numNoise, n) {x + noise *(noiseLevel/nu
 quadratic <- function(x, noise, noiseLevel, numNoise, n) { 4*(x-.5)^2+  noise * (noiseLevel/numNoise) * rnorm(n)}
 
 cubic <- function(x, noise, noiseLevel, numNoise, n) { 
-  128*(x-1/3)^3-48*(x-1/3)^3-12*(x-1/3)+10* noise  * (noiseLevel/numNoise) *rnorm(n)
+  128*(x-1/3)^3 -48*(x-1/3)^3-12*(x-1/3)+10* noise  * (noiseLevel/numNoise) *rnorm(n)
 }
 qroot <- function(x, noise, noiseLevel, numNoise, n) { 
   x^(1/4) + noise * (noiseLevel/numNoise) *rnorm(n)
@@ -17,14 +17,17 @@ sigmoid <- function(x, noise, noiseLevel, numNoise, n) {((1 + exp(10*(0.5 - x)))
 step <- function(x, noise, noiseLevel, numNoise, n) { (x > 0.5) + noise*5*noiseLevel/numNoise *rnorm(n) }
 
 spike <- function(x, noise, noiseLevel, numNoise, n) { 
-  v <- 0
-  if (x < 0.05) {
-    v <- 4
-  } else if(x < 0.1) {
-    v <- -18*x + 1.9 
-  } else {
-    v <- -x/9 + 1/9
+  v <- vector('numeric', n)
+  for (i in seq_along(x)) {
+    if (x[i] < 0.05) {
+      v[i] <- 4
+    } else if(x[i] < 0.1) {
+      v[i] <- -18*x[i] + 1.9
+    } else {
+       v[i] <- -x[i]/9 + 1/9
+    }
   }
+  
   v + noise*5*noiseLevel/numNoise *rnorm(n)
 }
 
