@@ -17,6 +17,9 @@ h0 <- function(type, measures, distribution, n, noise, noiseLevel, numNoise, ...
   res
 }
 
+#h0(linearCpp, c(r2), runif, 300, 3, 20, 30)
+#hA(linearCpp, c(r2), runif, 300, 3, 20, 30)
+
 #' The alt hypothesis. Generates depenent random variables and measures the association.
 #'
 #' @param type The type of functional relationship, e.g. linear.
@@ -67,59 +70,50 @@ simulateTwoWay <- function(type, h, measures, nsim, distribution, n, noise, nois
 powerForType <- function(type, measures, nsim, distribution, n, noise, noiseLevel, numNoise, ...) {
   hoRes <- simulateTwoWay(type, h0, measures, nsim, distribution, n, noise, noiseLevel, numNoise, ...)
   means <- colMeans(hoRes)
-  cat("\nmean h0: ", means[1], means[2], means[3], means[4], means[5], sep=", ")
+  #cat("\nmean h0: ", means[1], means[2], means[3], means[4], means[5], sep=", ")
   cuts <- apply(hoRes, 2, quantile, (1 - 0.05))
-  cat("\ncuts: ", cuts[1], cuts[2], cuts[3], cuts[4], cuts[5], sep=", ")
+  #cat("\ncuts: ", cuts[1], cuts[2], cuts[3], cuts[4], cuts[5], sep=", ")
   haRes <- simulateTwoWay(type, hA, measures, nsim, distribution, n, noise, noiseLevel, numNoise, ...)
   means <- colMeans(haRes)
-  cat("\nmean hA: ", means[1], means[2], means[3], means[4], means[5], "\n", sep=", ")
+  #cat("\nmean hA: ", means[1], means[2], means[3], means[4], means[5], "\n", sep=", ")
   #write.table(haRes, 'haRes.csv', append=TRUE)
   #write.table(haRes > cuts, 'haResL.csv', append=TRUE)
   #powerRes <-  apply(t(haRes > cuts), 2, sum)/nsim
-  cs <- colSums(sweep(haRes, 2, cuts, ">"))
-  cat("\ncs: ", cs[1], cs[2], cs[3], cs[4], cs[5], "\n", sep=", ")
   powerRes <- colSums(sweep(haRes, 2, cuts, ">"))/nsim
   #write.table(powerRes, 'powerRes.csv', append=TRUE)
   names(powerRes) <- paste("A", 1:length(measures), sep="")
+  cat(".")
   powerRes
 }
 
-tt <- matrix(3, 3, 3)
-#apply(tt, 1, function(x) x/c(1,2,3))
-colSums(sweep(tt, 2, c(1,2,3), ">"))/3
-# tt %*% diag(1/c(1,2,3))
-# 
-# t(tt/c(1,2,3))/3
-# 
-# dim(haRes)
-# t(replicate(2, c(0.04468796, 0.0549975, 0.232219)))
 
 getPower <- function(types, measures, nsim = 100, distribution, noise, numNoise, sizes, ...) {
   #build a grid of all noise levels and sample sizes
   parameters <- expand.grid(sizes, 1:numNoise)
   colnames(parameters) <- c("n", "noiseLevel")
-  
+
   powerNoiseAndSize <- function(fn) {
     f <- match.fun(fn)   # y <- functions[[typ]](x, noise, l, numNoise, n)
     res <- apply(parameters, 1, function(x) powerForType(f, measures, nsim, distribution, x[1], noise, x[2], numNoise))
     res <- data.frame(t(res))
     res <- cbind(res, parameters)
     res$Function <- fn
-    res 
+    res
   }
 
   #format the results
   res <- lapply(types, powerNoiseAndSize)
   res <- plyr::ldply(res)
-  res$noiseLevel <- res$noiseLevel/10
+  res$noiseLevel <- res$noiseLevel
   res <- gather(res, key = measure, value = power, -n, -Function, -noiseLevel)
   res
 }
 library(minerva)
 #test parameters
-types <- c('linear')
+
+types <- c("exponential2", "logE")
 noise <- 3
-numNoise <- 10
+numNoise <- 30
 r2 <- function(x, y) (cor(x, y))^2
 myMine <- function(x, y )mine(x,y)$MIC
 myMA <- function(x, y) ma(data.frame(x,y))$A
@@ -129,32 +123,33 @@ measures <- c(r2, spear, dcor, myMine, myMA)
 powerForType(linearCpp, measures, nsim=500, runif, n=100, noise=3, noiseLevel=15, numNoise=20)
 tpvn(500, alpha=0.05, noise=3, noiseLevel=15, numNoise=20, n = 100)
 
+
 res = apply(parameters, 1, function(x) powerForType(linearCpp, measures, 100, runif, x[2], noise, x[1], numNoise))
 r2  <- plyr::ldply(res)
 r3 <- cbind(r2, parameters)
+res$noiseLevel <- res$noiseLevel * 10
 
-
-system.time(res <- getPower(types, measures, nsim=100, runif, noise=3, 10, sizes=c(320)))
-ggplot(res, aes(noiseLevel, power, colour=measure)) + 
-  geom_line(size=1.1) + 
-  facet_grid(Function~n)+ 
-  theme(legend.position="bottom") 
+system.time(res <- getPower(types, measures, nsim=100, runif, noise=3, numNoise, sizes=c(320)))
+ggplot(res, aes(noiseLevel, power, colour=measure)) +
+  geom_line(size=1.1) +
+  facet_wrap(~Function)+
+  theme(legend.position="bottom")
 
 # powerVersusNoise <- function(#measures,
-#   functions, 
-#   distribution=runif, 
-#   nsim = 500, 
-#   alpha=0.05, 
-#   nl=3, 
-#   numNoise=30, 
+#   functions,
+#   distribution=runif,
+#   nsim = 500,
+#   alpha=0.05,
+#   nl=3,
+#   numNoise=30,
 #   n=320, ...)
-functions <- list("linear"=linear)
+functions <- list("cubic"=cubicCpp)
 set.seed(1)
 library(minerva)
 library(reshape2)
 #install.packages('minerva')
 system.time(noiseResults <- powerVersusNoise(functions, nsim = 100, n = 320, numNoise = 10))
 ggplot(noiseResults, aes(x=Noise, y=Power,group=Statistic,colour=Statistic)) +
-  geom_line(size=1.1) + 
-  facet_wrap(~ Form, ncol=3) + 
-  theme(legend.position="bottom") 
+  geom_line(size=1.1) +
+  facet_wrap(~ Form, ncol=3) +
+  theme(legend.position="bottom")
