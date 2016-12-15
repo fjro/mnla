@@ -29,13 +29,13 @@ measureNames <- c('Pearson', 'Spearman')
 
 #run the simulation
 res <- estimatePower(types,
-                                 measures,
-                                 measureNames,
-                                 nsim=500,
-                                 runif,
-                                 noise=3,
-                                 numNoise=30,
-                                 sizes=c(50, 100, 250, 500))
+                     measures,
+                     measureNames,
+                     nsim=500,
+                     runif,
+                     noise=3,
+                     numNoise=30,
+                     sizes=c(50, 100, 250, 500))
 
 #2D scatter plots of power vs noise for all associations and function types
 ggplot(res, aes(noiseLevel, power, colour=measure)) +
