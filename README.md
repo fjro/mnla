@@ -47,6 +47,6 @@ ggplot(res, aes(noiseLevel, power, colour=measure)) +
 plotSurface(res, "Pearson", "sigmoid")
 ```
 
-Despite using parallel processing and C++ the simulations can be compute intensive depending on the parameters used so caution is advised in choosing the parameters for the $estimatePower$ function.
+Despite using parallel processing and C++ the simulations can be compute intensive depending on the parameters used so caution is advised in choosing the parameters for the `estimatePower` function.
 
 There is a formal [report](reports/mnla.pdf) documenting the work and also a corresponding notebook.
