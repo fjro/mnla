@@ -16,10 +16,7 @@ system.time(res <- estimatePower(types,
                                  runif, 
                                  noise=3, 
                                  noiseLevels = 1:10, 
-                                 sizes=c(50, 100, 250, 500),
-                                 ncores="all",
-                                 dp1=0,
-                                 dp2=1))
+                                 sizes=c(50, 100, 250, 500)))
 
 #2D scatter plots of power vs noise for all associations and function types
 ggplot(res, aes(noiseLevel, power, colour=measure)) +
