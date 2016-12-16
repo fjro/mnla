@@ -15,11 +15,13 @@ system.time(res <- estimatePower(types,
                                  noise=3, 
                                  noiseLevels = 1:30, 
                                  sizes=sizes))
+res$Distribution <- "Uniform"
+
 
 #2D scatter plots of power vs noise for all associations and function types
 ggplot(res, aes(noiseLevel, power, colour=measure)) +
   geom_line(size=1.1) +
-  facet_wrap(~Function)+
+  facet_grid(n~Function)+
   theme(legend.position="bottom")
 
 #now repeat with a skewed disrbutions ~Uniform case
@@ -27,13 +29,18 @@ system.time(skewed <- estimatePower(types,
                                  measures, 
                                  measureNames, 
                                  nsim=500, 
-                                 rbeta, 
+                                 function(n) rbeta(n, 2, 5), 
                                  noise=3, 
                                  noiseLevels = 1:30,  
                                  sizes = sizes))
+skewed$Distribution <- "Beta"
 
 #2D scatter plots of power vs noise for all associations and function types
 ggplot(skewed, aes(noiseLevel, power, colour=measure)) +
   geom_line(size=1.1) +
-  facet_wrap(~Function)+
+  facet_grid(n~Function)+
   theme(legend.position="bottom")
+
+results <- rbind(res, skewed)
+library(feather)
+write_feather(results, "data/powerResults.feather")
