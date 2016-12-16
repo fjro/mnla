@@ -3,7 +3,7 @@ Measuring Non-linear Associations
 
 This study compared three different measures of association (a probabilistic measure of association called *A*, distance correlation (*dcor*) and Maximal Information Coefficient (*MIC*)) at identifying inter-variable relationships in large biological datasets. The comparisons are based on power simulations of two-way associations using a range of sample sizes, sampling distributions and additive noise levels.
 
-The simulations found that no measure of association had greater statistical power in all cases. Using the gene expression data, *dcor* identified all strong associations identified by $A$ in the two-way case. The analysis suggests that $A$ suffers from some of the same power deficiencies that have been previously identified for *MIC*.
+The simulations found that no measure of association had greater statistical power in all cases. Using the gene expression data, *dcor* identified all strong associations identified by *A* in the two-way case. The analysis suggests that $A$ suffers from some of the same power deficiencies that have been previously identified for *MIC*.
 
 Usage
 -----
@@ -28,14 +28,17 @@ measures <- c(r2, spear)
 measureNames <- c('Pearson', 'Spearman')
 
 #run the simulation
-res <- estimatePower(types,
-                     measures,
-                     measureNames,
-                     nsim=500,
-                     runif,
-                     noise=3,
-                     numNoise=30,
-                     sizes=c(50, 100, 250, 500))
+estimatePower(types,
+              measures,
+              measureNames,
+              nsim=500,
+              runif,
+              noise=3,
+              noiseLevels = 1:10,
+              sizes=c(50, 100, 250, 500),
+              ncores="all",
+              dp1=0,
+              dp2=1))
 
 #2D scatter plots of power vs noise for all associations and function types
 ggplot(res, aes(noiseLevel, power, colour=measure)) +

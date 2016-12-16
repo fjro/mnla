@@ -15,13 +15,16 @@ system.time(res <- estimatePower(types,
                                  nsim=500, 
                                  runif, 
                                  noise=3, 
-                                 numNoise=30, 
-                                 sizes=c(50, 100, 250, 500)))
+                                 noiseLevels = 1:10, 
+                                 sizes=c(50, 100, 250, 500),
+                                 ncores="all",
+                                 dp1=0,
+                                 dp2=1))
 
 #2D scatter plots of power vs noise for all associations and function types
 ggplot(res, aes(noiseLevel, power, colour=measure)) +
   geom_line(size=1.1) +
-  facet_grid(n~Function)+
+  facet_grid(Function~n)+
   theme(legend.position="bottom")
 
 #an interactive surface
