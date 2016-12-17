@@ -26,3 +26,6 @@ ggplot(res, aes(noiseLevel, power, colour=measure)) +
 
 #an interactive surface
 plotSurface(res, "Pearson", "sigmoid")
+
+res <- powerResults[powerResults$Distribution == "Uniform",]
+plotSurface(powerResults, "Pearson", "sigmoid", "Uniform")

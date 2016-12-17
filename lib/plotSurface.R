@@ -1,7 +1,7 @@
 #3d surface of a single association measure for a single function type.
-plotSurface <- function(res, measure, type) {
-  powerEstimate <- res[res$measure == measure & res$Function == type, c(1,2,5)]
-  powerEstimate <- spread(powerEstimate, noiseLevel, power)
+plotSurface <- function(res, measure, type, distribution) {
+  powerEstimate <- res[res$measure == measure & res$Function == type & res$Distribution == distribution, c(1,2,5)]
+  powerEstimate <- as.data.frame(spread(powerEstimate, noiseLevel, power))
   rownames(powerEstimate) <- powerEstimate[,1]
   powerEstimate<- as.matrix(powerEstimate[,-1])
   p <- plot_ly(z = powerEstimate, 
