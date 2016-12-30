@@ -48,3 +48,5 @@ ggplot(powerResults[powerResults$Distribution == "Beta" & powerResults$n == 350,
   geom_line(size=1.1) +
   facet_wrap(~Function)+
   theme(legend.position="bottom")
+
+plotSurface(powerResults, "Pearson", "sigmoid", "Uniform")
