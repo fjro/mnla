@@ -18,7 +18,7 @@ estimatePower <- function(types, measures, measureNames, nsim, distribution, noi
   colnames(parameters) <- c("n", "noiseLevel")
   
   powerNoiseAndSize <- function(fn) {
-    cat("Simulating ", fn, "\n")
+    cat("Simulating ", fn, "at", format(Sys.time()), "\n")
     f <- match.fun(fn)   
     res <- apply(parameters, 1, function(x) powerForType(f, measures, measureNames, nsim, distribution, x[1], noise, x[2], max(noiseLevels)))
     res <- data.frame(t(res))
@@ -38,7 +38,11 @@ estimatePower <- function(types, measures, measureNames, nsim, distribution, noi
  # do the work in parallel
   sfInit( parallel=TRUE, cpus=ncores, slaveOutfile='logs/log.txt')
   sfLibrary(nlf)
-  sfExport('powerForType', 'simulateTwoWay', 'h0', 'hA', 'parameters', 'measures', 'measureNames', 'noise', 'r2', 'spear')
+  sfLibrary(energy)
+  sfLibrary(matie)
+  sfLibrary(minerva)
+  sfExportAll()
+  #sfExport('powerForType', 'simulateTwoWay', 'h0', 'hA', 'parameters', 'measures', 'measureNames', 'noise', 'r2', 'spear')
   res <- sfLapply(types, powerNoiseAndSize)
   sfStop()
   

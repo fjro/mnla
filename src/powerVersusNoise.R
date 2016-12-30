@@ -2,8 +2,8 @@
 types <- ls(getNamespace("nlf"), all.names=F)
 
 #define the association measures to use
-measures <- c(r2, spear)
-measureNames <- c('Pearson', 'Spearman')
+measures <- c(r2, spear, dcor, myMA, myMine)
+measureNames <- c('A', 'MIC')
 sizes=c(10,20,30,40,50,75,100,125,150,200,250,300,350,400,500,750,1000)
 
 #run the simulation for the ~Uniform case
@@ -41,6 +41,10 @@ ggplot(skewed, aes(noiseLevel, power, colour=measure)) +
   facet_grid(n~Function)+
   theme(legend.position="bottom")
 
-results <- rbind(res, skewed)
-library(feather)
-write_feather(results, "data/powerResults.feather")
+powerResults <- rbind(res, skewed)
+write_feather(powerResults, "data/powerResults.feather")
+              
+ggplot(powerResults[powerResults$Distribution == "Beta" & powerResults$n == 350,], aes(noiseLevel, power, colour=measure)) +
+  geom_line(size=1.1) +
+  facet_wrap(~Function)+
+  theme(legend.position="bottom")
