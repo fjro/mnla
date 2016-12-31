@@ -1,3 +1,5 @@
+#script to run the power simulation
+
 #get all function types from the nlf package
 types <- ls(getNamespace("nlf"), all.names=F)
 
